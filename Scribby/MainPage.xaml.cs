@@ -65,7 +65,6 @@ namespace Scribby
             PreviewControl.Loaded += PreviewControl_Loaded;
             Application.Current.Suspending += Application_Suspending;
         }
-
         private void C_ReadingChanged(Compass sender, CompassReadingChangedEventArgs args)
         {
             CompassReading reading = args.Reading;
