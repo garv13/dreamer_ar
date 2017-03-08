@@ -1,1 +1,1 @@
-C:\Users\aksha\Documents\Visual Studio 2015\Projects\Scribby\Scribby\Scribby.csproj;x86
+C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\Scribby.csproj;x86
