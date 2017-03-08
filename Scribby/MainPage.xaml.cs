@@ -41,6 +41,7 @@ namespace Scribby
         DispatcherTimer tim;
         double wid, h, stepW,stepH,temppitch,tempyaw;
         double yaw5, pitch5;
+        
         public MainPage()
         {
             i = 0;
