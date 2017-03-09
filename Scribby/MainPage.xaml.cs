@@ -12,6 +12,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Devices.Sensors;
 using System.Diagnostics;
+using Windows.Devices.Geolocation;
 
 /// <NOTE TO SELF>
 /// render transform takes absolute corrdinates and hence we should an incrementer function to updates its value
@@ -62,9 +63,16 @@ namespace Scribby
             im = new Image();
             im.Width = 60;
             im.Height = 60;
+            Loaded += MainPage_Loaded;
             PreviewControl.Loaded += PreviewControl_Loaded;
             Application.Current.Suspending += Application_Suspending;
         }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            var accessStatus = await Geolocator.RequestAccessAsync();
+        }
+
         private void C_ReadingChanged(Compass sender, CompassReadingChangedEventArgs args)
         {
             CompassReading reading = args.Reading;
