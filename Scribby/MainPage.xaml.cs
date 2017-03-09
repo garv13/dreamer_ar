@@ -71,6 +71,7 @@ namespace Scribby
         private async void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             var accessStatus = await Geolocator.RequestAccessAsync();
+
         }
 
         private void C_ReadingChanged(Compass sender, CompassReadingChangedEventArgs args)
