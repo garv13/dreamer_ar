@@ -334,6 +334,12 @@
     <AppxPackagedFile Include="C:\Users\garvj\.nuget\packages\System.Xml.XmlSerializer\4.0.10\lib\netcore50\System.Xml.XmlSerializer.dll">
       <PackagePath>System.Xml.XmlSerializer.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\garvj\.nuget\packages\Win2D.uwp\1.20.0\runtimes\win10-x86\native\Microsoft.Graphics.Canvas.dll">
+      <PackagePath>Microsoft.Graphics.Canvas.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\garvj\.nuget\packages\Win2D.uwp\1.20.0\lib\uap10.0\Microsoft.Graphics.Canvas.winmd">
+      <PackagePath>Microsoft.Graphics.Canvas.winmd</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\Assets\IMG_9523.JPG">
       <PackagePath>Assets\IMG_9523.JPG</PackagePath>
     </AppxPackagedFile>

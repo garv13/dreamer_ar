@@ -392,3 +392,5 @@ C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\obj\x86\Debug\LoginPage.g.i.cs
 C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\obj\x86\Debug\LoginPage.g.cs
 C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\obj\x86\Debug\LoginPage.xaml
 C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\obj\x86\Debug\LoginPage.xbf
+C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\bin\x86\Debug\Microsoft.Graphics.Canvas.dll
+C:\Users\garvj\Source\Repos\dreamer_ar\Scribby\bin\x86\Debug\Microsoft.Graphics.Canvas.winmd

@@ -1,17 +1,23 @@
-﻿using System;
+﻿using Microsoft.Graphics.Canvas;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.UI;
 using Windows.UI.Input.Inking;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -26,82 +32,49 @@ namespace Scribby
         public Canvas_Page()
         {
             this.InitializeComponent();
+            DrawingArea.InkPresenter.InputDeviceTypes =
+        Windows.UI.Core.CoreInputDeviceTypes.Mouse |
+        Windows.UI.Core.CoreInputDeviceTypes.Pen;
 
-            // Set supported inking device types.
-            inkCanvas.InkPresenter.InputDeviceTypes =
-                Windows.UI.Core.CoreInputDeviceTypes.Mouse |
-                Windows.UI.Core.CoreInputDeviceTypes.Pen;
-
-            // Set initial ink stroke attributes.
-            InkDrawingAttributes drawingAttributes = new InkDrawingAttributes();
-            drawingAttributes.Color = Windows.UI.Colors.Black;
-            drawingAttributes.IgnorePressure = false;
-            drawingAttributes.FitToCurve = true;
-            inkCanvas.InkPresenter.UpdateDefaultDrawingAttributes(drawingAttributes);
-
-            // Listen for button click to initiate recognition.
-            recognize.Click += Recognize_Click;
         }
 
-        // Handle button click to initiate recognition.
-        private async void Recognize_Click(object sender, RoutedEventArgs e)
+        private async void NextBar_Click(object sender, RoutedEventArgs e)
         {
-            // Get all strokes on the InkCanvas.
-            IReadOnlyList<InkStroke> currentStrokes = inkCanvas.InkPresenter.StrokeContainer.GetStrokes();
+            CanvasDevice device = CanvasDevice.GetSharedDevice();
+            CanvasRenderTarget renderTarget = new CanvasRenderTarget(device, (int)DrawingArea.ActualWidth, (int)DrawingArea.ActualHeight, 96);
 
-            // Ensure an ink stroke is present.
-            if (currentStrokes.Count > 0)
+            using (var ds = renderTarget.CreateDrawingSession())
             {
-                // Create a manager for the InkRecognizer object
-                // used in handwriting recognition.
-                InkRecognizerContainer inkRecognizerContainer =
-                    new InkRecognizerContainer();
+                ds.Clear(Colors.Transparent);
+                ds.DrawInk(DrawingArea.InkPresenter.StrokeContainer.GetStrokes());
+            }
 
-                // inkRecognizerContainer is null if a recognition engine is not available.
-                if (!(inkRecognizerContainer == null))
+            var savePicker = new Windows.Storage.Pickers.FileSavePicker();
+            savePicker.SuggestedStartLocation =
+                Windows.Storage.Pickers.PickerLocationId.PicturesLibrary;
+            // Dropdown of file types the user can save the file as
+            savePicker.FileTypeChoices.Add("Plain Text", new List<string>() { ".png" });
+            // Default file name if the user does not type one in or select a file to replace
+            savePicker.SuggestedFileName = "New Image";
+
+
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+            if (file != null)
+            {
+                CachedFileManager.DeferUpdates(file);
+                using (var fileStream = await file.OpenAsync(FileAccessMode.ReadWrite))
+                    await renderTarget.SaveAsync(fileStream, CanvasBitmapFileFormat.Png, 1f);
+                Windows.Storage.Provider.FileUpdateStatus status =
+                    await Windows.Storage.CachedFileManager.CompleteUpdatesAsync(file);
+                if (status == Windows.Storage.Provider.FileUpdateStatus.Complete)
                 {
-                    // Recognize all ink strokes on the ink canvas.
-                    IReadOnlyList<InkRecognitionResult> recognitionResults =
-                        await inkRecognizerContainer.RecognizeAsync(
-                            inkCanvas.InkPresenter.StrokeContainer,
-                            InkRecognitionTarget.All);
-                    // Process and display the recognition results.
-                    if (recognitionResults.Count > 0)
-                    {
-                        string str = "Recognition result\n";
-                        // Iterate through the recognition results.
-                        foreach (var result in recognitionResults)
-                        {
-                            // Get all recognition candidates from each recognition result.
-                            IReadOnlyList<string> candidates = result.GetTextCandidates();
-                            str += "Candidates: " + candidates.Count.ToString() + "\n";
-                            foreach (string candidate in candidates)
-                            {
-                                str += candidate + " ";
-                            }
-                        }
-                        // Display the recognition candidates.
-                        recognitionResult.Text = str;
-                        // Clear the ink canvas once recognition is complete.
-                        inkCanvas.InkPresenter.StrokeContainer.Clear();
-                    }
-                    else
-                    {
-                        recognitionResult.Text = "No recognition results.";
-                    }
+                    MessageDialog msgbox = new MessageDialog("File Was saved");
                 }
                 else
                 {
-                    Windows.UI.Popups.MessageDialog messageDialog = new Windows.UI.Popups.MessageDialog("You must install handwriting recognition engine.");
-                    await messageDialog.ShowAsync();
+                    MessageDialog msgbox = new MessageDialog("File couldn't be saved");
                 }
             }
-            else
-            {
-                recognitionResult.Text = "No ink strokes to recognize.";
-            }
         }
-
-
     }
 }
