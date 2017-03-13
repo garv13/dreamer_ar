@@ -38,6 +38,7 @@ namespace Scribby
 
         }
 
+
         private async void NextBar_Click(object sender, RoutedEventArgs e)
         {
             CanvasDevice device = CanvasDevice.GetSharedDevice();
