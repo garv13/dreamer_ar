@@ -132,19 +132,21 @@ namespace Scribby.Scribby_XamlTypeInfo
 
         private void InitTypeTables()
         {
-            _typeNameTable = new string[5];
+            _typeNameTable = new string[6];
             _typeNameTable[0] = "Scribby.Canvas_Page";
             _typeNameTable[1] = "Windows.UI.Xaml.Controls.Page";
             _typeNameTable[2] = "Windows.UI.Xaml.Controls.UserControl";
-            _typeNameTable[3] = "Scribby.LoginPage";
-            _typeNameTable[4] = "Scribby.MainPage";
+            _typeNameTable[3] = "Scribby.Image_Set_Page";
+            _typeNameTable[4] = "Scribby.LoginPage";
+            _typeNameTable[5] = "Scribby.MainPage";
 
-            _typeTable = new global::System.Type[5];
+            _typeTable = new global::System.Type[6];
             _typeTable[0] = typeof(global::Scribby.Canvas_Page);
             _typeTable[1] = typeof(global::Windows.UI.Xaml.Controls.Page);
             _typeTable[2] = typeof(global::Windows.UI.Xaml.Controls.UserControl);
-            _typeTable[3] = typeof(global::Scribby.LoginPage);
-            _typeTable[4] = typeof(global::Scribby.MainPage);
+            _typeTable[3] = typeof(global::Scribby.Image_Set_Page);
+            _typeTable[4] = typeof(global::Scribby.LoginPage);
+            _typeTable[5] = typeof(global::Scribby.MainPage);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -180,8 +182,9 @@ namespace Scribby.Scribby_XamlTypeInfo
         }
 
         private object Activate_0_Canvas_Page() { return new global::Scribby.Canvas_Page(); }
-        private object Activate_3_LoginPage() { return new global::Scribby.LoginPage(); }
-        private object Activate_4_MainPage() { return new global::Scribby.MainPage(); }
+        private object Activate_3_Image_Set_Page() { return new global::Scribby.Image_Set_Page(); }
+        private object Activate_4_LoginPage() { return new global::Scribby.LoginPage(); }
+        private object Activate_5_MainPage() { return new global::Scribby.MainPage(); }
 
         private global::Windows.UI.Xaml.Markup.IXamlType CreateXamlType(int typeIndex)
         {
@@ -208,16 +211,23 @@ namespace Scribby.Scribby_XamlTypeInfo
                 xamlType = new global::Scribby.Scribby_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 3:   //  Scribby.LoginPage
+            case 3:   //  Scribby.Image_Set_Page
                 userType = new global::Scribby.Scribby_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_3_LoginPage;
+                userType.Activator = Activate_3_Image_Set_Page;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 4:   //  Scribby.MainPage
+            case 4:   //  Scribby.LoginPage
                 userType = new global::Scribby.Scribby_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_4_MainPage;
+                userType.Activator = Activate_4_LoginPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 5:   //  Scribby.MainPage
+                userType = new global::Scribby.Scribby_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Windows.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_5_MainPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;

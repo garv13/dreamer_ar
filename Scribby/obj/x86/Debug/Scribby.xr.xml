@@ -31,13 +31,14 @@
     </RootType>
     <RootType FullName="Scribby.Canvas_Page" />
     <RootType FullName="Microsoft.Xaml.DirectUI.ProxyTypes.ThemeResourceExtension" />
-    <RootType FullName="Scribby.LoginPage" />
     <RootType FullName="Windows.UI.Xaml.Controls.CaptureElement">
       <RootProperty Name="Name" />
       <RootProperty Name="Stretch" />
       <RootProperty Name="HorizontalAlignment" />
       <RootProperty Name="VerticalAlignment" />
     </RootType>
+    <RootType FullName="Scribby.Image_Set_Page" />
+    <RootType FullName="Scribby.LoginPage" />
     <RootType FullName="Scribby.MainPage" />
   </Roots.RootTypes>
 </Roots>

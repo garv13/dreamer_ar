@@ -95,8 +95,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Canvas_Image.cs" />
     <Compile Include="Canvas_Page.xaml.cs">
       <DependentUpon>Canvas_Page.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Image_Set_Page.xaml.cs">
+      <DependentUpon>Image_Set_Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -131,6 +135,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Canvas_Page.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Image_Set_Page.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
